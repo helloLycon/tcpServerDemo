@@ -15,7 +15,7 @@ terminal.termInit(clients);
  * The function passed to net.createServer() becomes the event handler for the 'connection' event
  * The sock object the callback function receives UNIQUE for each connection
  */
-net.createServer( sock => {
+const server = net.createServer( sock => {
     /* We have a connection - a socket object is assigned to the connection automatically */
     console.log(`${sock.remoteAddress}:${sock.remotePort} Connected!\r\n`);
     /* push new sock into buffer */
@@ -45,6 +45,11 @@ net.createServer( sock => {
     });
     
 }).listen(LISTEN_PORT);
+
+/* error handler */
+server.on('error' , err => {
+    console.log(`error: ${err}`);
+});
 
 console.log('Server listening on ' +':'+ LISTEN_PORT);
 
